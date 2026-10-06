@@ -1,0 +1,11 @@
+{
+  "name": "dental-to-bcs",
+  "version": "1.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx vercel dev",
+    "build": "node -e \"console.log('Static site ready - public directory will be deployed')\"",
+    "start": "npx vercel dev"
+  }
+}

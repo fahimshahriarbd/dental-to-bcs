@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BDS to BCS</title>
+  <meta name="description" content="Practice questions for BDS students and BCS candidates.">
+  <meta property="og:title" content="BDS to BCS">
+  <meta property="og:description" content="Practice questions for BDS students and BCS candidates.">
+
+  <!-- Google Fonts: Plus Jakarta Sans for clean typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+  <!-- Fluid Animated Aura Blobs -->
+  <div class="fluid-background">
+    <div class="fluid-orb fluid-orb-1"></div>
+    <div class="fluid-orb fluid-orb-2"></div>
+    <div class="fluid-orb fluid-orb-3"></div>
+  </div>
+
+  <!-- Frosted Glass Navigation Bar -->
+  <header>
+    <div class="container header-inner">
+      <a href="#" class="brand" id="brandLogo">
+        <div class="logo-symbol" title="BDS to BCS Study App">
+          <!-- Real Dental Tooth Molar SVG Icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 3C4.8 3 3.5 4.8 3.5 7.2C3.5 10.5 5 12.8 6.2 15.5C7.2 17.8 7.8 21 9.5 21C11 21 11.4 18.2 12 16.5C12.6 18.2 13 21 14.5 21C16.2 21 16.8 17.8 17.8 15.5C19 12.8 20.5 10.5 20.5 7.2C20.5 4.8 19.2 3 17 3C15 3 13.8 4.6 12 4.6C10.2 4.6 9 3 7 3Z"/>
+          </svg>
+        </div>
+        <div class="brand-title">
+          <span class="bds">BDS</span>
+          <span class="sep">to</span>
+          <span class="bcs">BCS</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <!-- Sound Toggle -->
+        <button type="button" class="nav-btn" id="btnToggleSound" title="Sound On / Off">
+          <svg id="soundSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+        </button>
+
+        <!-- Dark / Light Theme Toggle -->
+        <button type="button" class="nav-btn" id="btnToggleTheme" title="Toggle Dark / Light Theme">
+          <svg id="themeSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Center Category Switcher: BDS (Dental Tooth) vs BCS (Cadre) -->
+    <div class="center-category-hub">
+      <div class="category-tabs" role="tablist">
+        <!-- BDS Tab with Dental Tooth (Molar) Icon -->
+        <button type="button" class="tab-btn active tab-bds" id="tabBtnBds" data-cat="BDS" role="tab" aria-selected="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 3C4.8 3 3.5 4.8 3.5 7.2C3.5 10.5 5 12.8 6.2 15.5C7.2 17.8 7.8 21 9.5 21C11 21 11.4 18.2 12 16.5C12.6 18.2 13 21 14.5 21C16.2 21 16.8 17.8 17.8 15.5C19 12.8 20.5 10.5 20.5 7.2C20.5 4.8 19.2 3 17 3C15 3 13.8 4.6 12 4.6C10.2 4.6 9 3 7 3Z"/>
+          </svg>
+          BDS (Dental)
+        </button>
+        <!-- BCS Tab with Cadre Insignia Icon -->
+        <button type="button" class="tab-btn tab-bcs" id="tabBtnBcs" data-cat="BCS" role="tab" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+          BCS (Cadre)
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Practice & Question Count Status Bar -->
+    <div class="status-bar">
+      <div class="total-questions-indicator">
+        <span id="statQuestionCount">Loading questions...</span>
+      </div>
+      <div id="statStatusBadge" class="badge-live">
+        <span class="dot"></span>
+        <span>Live Practice</span>
+      </div>
+    </div>
+
+    <!-- Frosted Glass Filter Deck: Subject (count) + Topic (count) + View Questions button -->
+    <div class="filter-panel">
+      <div class="filter-grid">
+        <div class="form-group">
+          <label class="form-label" for="selectSubject">Subject</label>
+          <select id="selectSubject" class="form-select">
+            <option value="all">All Subjects</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="selectTopic">Topic</label>
+          <select id="selectTopic" class="form-select">
+            <option value="all">All Topics</option>
+          </select>
+        </div>
+
+        <button type="button" class="btn-view-questions" id="btnViewQuestions">
+          <span>View Questions</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Frosted Glass 3D Flashcard Section -->
+    <div class="card-stage">
+      <div class="card-meta-bar">
+        <div id="cardTagsIndicator">BDS · Anatomy · Cranial Nerve</div>
+        <div class="card-index" id="cardCounterIndex">1 / 1</div>
+      </div>
+
+      <!-- 3D Viewport -->
+      <div class="card-viewport" id="cardViewport">
+        <div class="flip-card-inner" id="flipCardInner">
+
+          <!-- FRONT FACE: Question Only -->
+          <div class="card-face card-front">
+            <div>
+              <div class="card-header-tags">
+                <span id="frontCategoryLabel">BDS</span>
+                <span>·</span>
+                <span id="frontSubjectLabel">Subject</span>
+                <span>·</span>
+                <span class="tag-topic" id="frontTopicLabel">Topic</span>
+              </div>
+
+              <div class="question-content" id="questionText">
+                Loading practice flashcard...
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto;">
+              <span class="card-prompt-hint">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                </svg>
+                Click Reveal or Press Space to Flip
+              </span>
+
+              <button type="button" class="btn-reveal-answer" id="btnRevealAnswer">
+                <span>Reveal Answer</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- BACK FACE: Answer & Explanation -->
+          <div class="card-face card-back">
+            <div>
+              <div class="answer-tag-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>Correct Answer</span>
+              </div>
+
+              <div class="answer-text-lead" id="answerHeadline">
+                Answer details
+              </div>
+
+              <div class="explanation-section" id="answerExplanation">
+                Explanation notes
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto;">
+              <button type="button" class="btn-reveal-answer" id="btnFlipBack">
+                ← Flip Back to Question
+              </button>
+
+              <button type="button" class="ctrl-btn primary" id="btnNextFromBack">
+                Next Card →
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Controls: Back, Flip, Next -->
+      <div class="card-controls">
+        <button type="button" class="ctrl-btn" id="btnPrevCard" title="Previous Flashcard">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+          Previous
+        </button>
+
+        <button type="button" class="ctrl-btn" id="btnFlipCard" title="Flip Flashcard (Spacebar)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="17 1 21 5 17 9"/>
+            <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+            <polyline points="7 23 3 19 7 15"/>
+            <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+          </svg>
+          Flip Card
+        </button>
+
+        <button type="button" class="ctrl-btn primary" id="btnNextCard" title="Next Flashcard">
+          Next Card
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Clean Footer as Specified -->
+  <footer>
+    <div class="container">
+      Developed by <a href="https://fahimshahriar.com.bd" target="_blank" rel="noopener noreferrer">Fahim Shahriar</a>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       JAVASCRIPT LOGIC
+       ======================================================================== -->
+    <script src="/js/app.js" defer></script>
+</body>
+</html>
