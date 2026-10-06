@@ -1,4 +1,7 @@
 {
   "name": "BDS to BCS",
-  "description": "Practice questions for BDS students and BCS candidates."
+  "description": "Practice questions for BDS students and BCS candidates.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
