@@ -453,6 +453,92 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Card-Only Full Screen (Zen Mode) */
+.btn-exit-fullscreen {
+  display: none;
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  appearance: none;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  color: var(--text);
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 99px;
+  cursor: pointer;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-card);
+  transition: all 0.2s ease;
+  z-index: 10001;
+}
+
+.btn-exit-fullscreen:hover {
+  border-color: var(--accent-bds);
+  color: var(--accent-bds);
+  transform: translateY(-1px);
+}
+
+.card-stage.zen-fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  background-color: var(--bg);
+  background-image: var(--bg-gradient);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 20px 24px;
+  overflow-y: auto;
+}
+
+.card-stage.zen-fullscreen .btn-exit-fullscreen {
+  display: inline-flex;
+}
+
+.card-stage.zen-fullscreen .card-meta-bar {
+  width: min(100%, 820px);
+  margin-bottom: 8px;
+}
+
+.card-stage.zen-fullscreen .card-viewport {
+  width: min(100%, 820px);
+  flex: 1;
+  min-height: 420px;
+  max-height: calc(100vh - 190px);
+}
+
+.card-stage.zen-fullscreen .flip-card-inner {
+  height: 100%;
+}
+
+.card-stage.zen-fullscreen .card-face {
+  padding: 36px 32px;
+}
+
+.card-stage.zen-fullscreen .question-content {
+  font-size: clamp(22px, 3.2vw, 30px);
+  max-width: 740px;
+}
+
+.card-stage.zen-fullscreen .answer-content {
+  font-size: clamp(24px, 3.5vw, 34px);
+  max-width: 740px;
+}
+
+.card-stage.zen-fullscreen .card-controls {
+  width: min(100%, 820px);
+  margin-top: 14px;
 }
 
 /* Meta Bar: Centered Question Counter (1 / 15) & Sleek Progress Bar */
@@ -543,22 +629,37 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 700;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  font-size: 14px;
+  font-weight: 600;
   color: var(--accent-bds);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding-bottom: 6px;
+  text-transform: none; /* Exact database casing, no forced uppercase */
+  letter-spacing: normal;
+  text-align: center;
+  line-height: 1.5;
+  padding-bottom: 10px;
   border-bottom: 1px dashed var(--surface-border);
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+.card-header-tags span {
+  display: inline-block;
+  white-space: nowrap; /* Prevents breaking individual words in the middle */
+  word-break: keep-all;
 }
 
 .card-header-tags .tag-sep {
   color: var(--text-dim);
+  font-weight: 700;
+  display: inline-block;
+  padding: 0 1px;
 }
 
 .card-header-tags .tag-topic {
   color: var(--text-muted);
+  font-weight: 500;
 }
 
 /* Centered Question Body */
