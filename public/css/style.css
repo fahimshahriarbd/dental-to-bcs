@@ -868,3 +868,17 @@ footer {
     justify-content: space-between;
   }
 }
+/* ================================
+   FONT SETTINGS
+   English: Arial
+   Bengali: Tiro Bangla
+   ================================ */
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Bengali text */
+:lang(bn) {
+  font-family: "Tiro Bangla", serif;
+}
