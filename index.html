@@ -13,17 +13,37 @@
       padding: 0;
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f7fb;
-      color: #172033;
-      min-height: 100vh;
-      transition: 0.3s ease;
+    :root {
+      --primary: #0d9488;
+      --primary-light: #e6f5f3;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #697386;
+      --border: #dce2ea;
+      --danger: #dc2626;
     }
 
     body.dark {
-      background: #10141c;
-      color: #f2f4f8;
+      --bg: #10141c;
+      --card: #181e28;
+      --text: #f2f4f8;
+      --muted: #9ba5b5;
+      --border: #303847;
+      --primary-light: #173b38;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    button,
+    select {
+      font-family: inherit;
     }
 
     .container {
@@ -31,7 +51,9 @@
       margin: auto;
     }
 
-    /* Header */
+    /* =========================
+       HEADER
+       ========================= */
 
     header {
       padding: 22px 0;
@@ -57,7 +79,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #0d9488;
+      background: var(--primary);
       color: white;
       font-size: 22px;
     }
@@ -68,7 +90,7 @@
 
     .brand-text p {
       font-size: 12px;
-      opacity: 0.65;
+      color: var(--muted);
       margin-top: 3px;
     }
 
@@ -77,17 +99,15 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: #e8edf4;
+      background: var(--border);
       cursor: pointer;
       font-size: 18px;
+      color: var(--text);
     }
 
-    body.dark .theme-btn {
-      background: #202733;
-      color: white;
-    }
-
-    /* Welcome */
+    /* =========================
+       HOME
+       ========================= */
 
     .welcome {
       text-align: center;
@@ -105,28 +125,56 @@
     }
 
     .welcome h2 span {
-      color: #0d9488;
+      color: var(--primary);
     }
 
     .welcome p {
       max-width: 600px;
       margin: auto;
       line-height: 1.7;
-      opacity: 0.7;
+      color: var(--muted);
       font-size: 15px;
     }
 
-    /* Filters */
+    /* =========================
+       LOADING
+       ========================= */
+
+    .loading {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      display: none;
+    }
+
+    .spinner {
+      width: 25px;
+      height: 25px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =========================
+       FILTERS
+       ========================= */
 
     .filters {
-      background: white;
+      background: var(--card);
       border-radius: 20px;
       padding: 25px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.06);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
     }
 
     body.dark .filters {
-      background: #181e28;
       box-shadow: none;
     }
 
@@ -145,24 +193,18 @@
       display: block;
       font-size: 13px;
       margin-bottom: 7px;
-      opacity: 0.7;
+      color: var(--muted);
     }
 
     select {
       width: 100%;
       padding: 13px;
-      border: 1px solid #dce2ea;
+      border: 1px solid var(--border);
       border-radius: 10px;
-      background: white;
-      color: #172033;
+      background: var(--card);
+      color: var(--text);
       outline: none;
       font-size: 14px;
-    }
-
-    body.dark select {
-      background: #11161e;
-      border-color: #303847;
-      color: white;
     }
 
     .start-btn {
@@ -171,7 +213,7 @@
       padding: 14px;
       border: none;
       border-radius: 11px;
-      background: #0d9488;
+      background: var(--primary);
       color: white;
       font-weight: bold;
       cursor: pointer;
@@ -184,7 +226,9 @@
       opacity: 0.92;
     }
 
-    /* Practice */
+    /* =========================
+       PRACTICE
+       ========================= */
 
     #practice {
       display: none;
@@ -201,27 +245,30 @@
 
     .question-number {
       font-size: 13px;
-      opacity: 0.65;
+      color: var(--muted);
     }
 
     .timer {
       width: 55px;
       height: 55px;
       border-radius: 50%;
-      background: #e6f5f3;
-      color: #0d9488;
+      background: var(--primary-light);
+      color: var(--primary);
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 20px;
       font-weight: bold;
+      transition: 0.2s;
     }
 
-    body.dark .timer {
-      background: #173b38;
+    .timer.warning {
+      color: var(--danger);
     }
 
-    /* Card */
+    /* =========================
+       CARD
+       ========================= */
 
     .card-wrapper {
       perspective: 1200px;
@@ -247,8 +294,8 @@
       backface-visibility: hidden;
       border-radius: 24px;
       padding: 35px;
-      background: white;
-      box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+      background: var(--card);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -257,23 +304,18 @@
     }
 
     body.dark .card-side {
-      background: #181e28;
       box-shadow: none;
     }
 
     .card-back {
       transform: rotateY(180deg);
-      background: #ecfdfb;
-    }
-
-    body.dark .card-back {
-      background: #12302d;
+      background: var(--primary-light);
     }
 
     .card-label {
       font-size: 12px;
       font-weight: bold;
-      color: #0d9488;
+      color: var(--primary);
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 20px;
@@ -292,13 +334,21 @@
       max-width: 700px;
     }
 
+    .question-topic {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
     .hint {
       margin-top: 25px;
       font-size: 12px;
-      opacity: 0.5;
+      color: var(--muted);
     }
 
-    /* Buttons */
+    /* =========================
+       ACTIONS
+       ========================= */
 
     .actions {
       display: grid;
@@ -310,22 +360,17 @@
     .action-btn {
       padding: 13px;
       border-radius: 11px;
-      border: 1px solid #dce2ea;
-      background: white;
+      border: 1px solid var(--border);
+      background: var(--card);
       cursor: pointer;
       font-weight: 600;
-      color: #172033;
-    }
-
-    body.dark .action-btn {
-      background: #181e28;
-      color: white;
-      border-color: #303847;
+      color: var(--text);
+      transition: 0.2s;
     }
 
     .action-btn.primary {
-      background: #0d9488;
-      border-color: #0d9488;
+      background: var(--primary);
+      border-color: var(--primary);
       color: white;
     }
 
@@ -333,27 +378,44 @@
       transform: translateY(-1px);
     }
 
-    /* Back */
-
     .back-btn {
       margin-top: 18px;
       background: transparent;
       border: none;
       cursor: pointer;
+      color: var(--text);
       opacity: 0.65;
-      color: inherit;
     }
 
-    /* Footer */
+    /* =========================
+       ERROR
+       ========================= */
+
+    .error-box {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #fee2e2;
+      color: #991b1b;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       FOOTER
+       ========================= */
 
     footer {
       text-align: center;
       padding: 35px 0;
       font-size: 12px;
-      opacity: 0.55;
+      color: var(--muted);
     }
 
-    /* Mobile */
+    /* =========================
+       MOBILE
+       ========================= */
 
     @media (max-width: 600px) {
 
@@ -369,8 +431,8 @@
         padding: 20px;
       }
 
-      .card-side,
-      .card {
+      .card,
+      .card-side {
         min-height: 390px;
       }
 
@@ -395,21 +457,30 @@
 
 <body>
 
-  <!-- Header -->
+  <!-- =========================
+       HEADER
+       ========================= -->
 
   <header>
     <div class="container header-inner">
 
       <div class="brand">
-        <div class="logo">🦷</div>
+
+        <div class="logo">
+          🦷
+        </div>
 
         <div class="brand-text">
           <h1>Dental to BCS</h1>
           <p>Learn • Practice • Prepare</p>
         </div>
+
       </div>
 
-      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
+      <button
+        class="theme-btn"
+        onclick="toggleTheme()"
+        id="themeBtn">
         🌙
       </button>
 
@@ -417,7 +488,9 @@
   </header>
 
 
-  <!-- Home -->
+  <!-- =========================
+       HOME
+       ========================= -->
 
   <main id="home">
 
@@ -425,15 +498,18 @@
 
       <div class="container">
 
-        <div class="emoji">🦷</div>
+        <div class="emoji">
+          🦷
+        </div>
 
         <h2>
           Dental <span>to BCS</span>
         </h2>
 
         <p>
-          Practice dental and BCS-related questions with timed
-          question cards, quick answers and focused revision.
+          Practice dental and BCS-related questions
+          with timed question cards, quick answers
+          and focused revision.
         </p>
 
       </div>
@@ -441,56 +517,43 @@
     </section>
 
 
-    <!-- Filters -->
-
     <section class="container">
 
-      <div class="filters">
+      <!-- Loading -->
 
-        <h3>Start Practice</h3>
+      <div
+        class="loading"
+        id="loading">
+
+        <div class="spinner"></div>
+
+        Loading questions...
+
+      </div>
+
+
+      <!-- Filters -->
+
+      <div
+        class="filters"
+        id="filters">
+
+        <h3>
+          Start Practice
+        </h3>
 
         <div class="filter-grid">
 
           <div class="filter-group">
 
-            <label>Subject</label>
+            <label for="subjectSelect">
+              Subject
+            </label>
 
             <select id="subjectSelect">
 
               <option value="all">
                 All Subjects
-              </option>
-
-              <option value="Anatomy">
-                Anatomy
-              </option>
-
-              <option value="Physiology">
-                Physiology
-              </option>
-
-              <option value="Biochemistry">
-                Biochemistry
-              </option>
-
-              <option value="Pharmacology">
-                Pharmacology
-              </option>
-
-              <option value="Pathology">
-                Pathology
-              </option>
-
-              <option value="Microbiology">
-                Microbiology
-              </option>
-
-              <option value="Dental">
-                Dental
-              </option>
-
-              <option value="BCS">
-                BCS
               </option>
 
             </select>
@@ -500,24 +563,14 @@
 
           <div class="filter-group">
 
-            <label>Difficulty</label>
+            <label for="difficultySelect">
+              Difficulty
+            </label>
 
             <select id="difficultySelect">
 
               <option value="all">
                 All Levels
-              </option>
-
-              <option value="Easy">
-                Easy
-              </option>
-
-              <option value="Medium">
-                Medium
-              </option>
-
-              <option value="Hard">
-                Hard
               </option>
 
             </select>
@@ -527,9 +580,19 @@
         </div>
 
 
-        <button class="start-btn" onclick="startPractice()">
+        <button
+          class="start-btn"
+          onclick="startPractice()">
+
           Start Practice →
+
         </button>
+
+
+        <div
+          class="error-box"
+          id="errorBox">
+        </div>
 
       </div>
 
@@ -538,7 +601,9 @@
   </main>
 
 
-  <!-- Practice -->
+  <!-- =========================
+       PRACTICE
+       ========================= -->
 
   <section id="practice">
 
@@ -546,25 +611,37 @@
 
       <div class="practice-top">
 
-        <div class="question-number" id="questionNumber">
+        <div
+          class="question-number"
+          id="questionNumber">
+
           Question 1
+
         </div>
 
-        <div class="timer" id="timer">
+
+        <div
+          class="timer"
+          id="timer">
+
           30
+
         </div>
 
       </div>
 
 
-      <!-- Question Card -->
+      <!-- CARD -->
 
       <div class="card-wrapper">
 
-        <div class="card" id="questionCard"
-             onclick="flipCard()">
+        <div
+          class="card"
+          id="questionCard"
+          onclick="flipCard()">
 
-          <!-- Front -->
+
+          <!-- FRONT -->
 
           <div class="card-side card-front">
 
@@ -572,10 +649,22 @@
               Question
             </div>
 
-            <div class="card-question"
-                 id="questionText">
+
+            <div
+              class="card-question"
+              id="questionText">
+
               Loading question...
+
             </div>
+
+
+            <div
+              class="question-topic"
+              id="questionTopic">
+
+            </div>
+
 
             <div class="hint">
               Tap the card to reveal the answer
@@ -584,7 +673,7 @@
           </div>
 
 
-          <!-- Back -->
+          <!-- BACK -->
 
           <div class="card-side card-back">
 
@@ -592,10 +681,15 @@
               Possible Answer
             </div>
 
-            <div class="answer"
-                 id="answerText">
+
+            <div
+              class="answer"
+              id="answerText">
+
               Answer
+
             </div>
+
 
             <div class="hint">
               Tap the card to return
@@ -608,31 +702,45 @@
       </div>
 
 
-      <!-- Actions -->
+      <!-- ACTIONS -->
 
       <div class="actions">
 
-        <button class="action-btn"
-                onclick="skipQuestion(event)">
+        <button
+          class="action-btn"
+          onclick="skipQuestion(event)">
+
           ⏭ Skip
+
         </button>
 
-        <button class="action-btn"
-                onclick="flipCard(event)">
+
+        <button
+          class="action-btn"
+          onclick="flipCard(event)">
+
           🔄 Flip
+
         </button>
 
-        <button class="action-btn primary"
-                onclick="nextQuestion(event)">
+
+        <button
+          class="action-btn primary"
+          onclick="nextQuestion(event)">
+
           Next →
+
         </button>
 
       </div>
 
 
-      <button class="back-btn"
-              onclick="goHome()">
+      <button
+        class="back-btn"
+        onclick="goHome()">
+
         ← Back to Home
+
       </button>
 
     </div>
@@ -640,10 +748,14 @@
   </section>
 
 
+  <!-- FOOTER -->
+
   <footer>
 
     <div class="container">
+
       Dental to BCS • Question Practice
+
     </div>
 
   </footer>
@@ -651,72 +763,19 @@
 
   <script>
 
-    /* =========================
-       DEMO QUESTION DATABASE
-       ========================= */
+    /* ==========================================
+       GOOGLE APPS SCRIPT API
+       ========================================== */
 
-    const questions = [
-
-      {
-        subject: "Anatomy",
-        difficulty: "Easy",
-        question:
-          "Which is the largest cranial nerve?",
-        answer:
-          "The trigeminal nerve (Cranial Nerve V) is the largest cranial nerve."
-      },
-
-      {
-        subject: "Physiology",
-        difficulty: "Medium",
-        question:
-          "What is the normal resting heart rate in an adult?",
-        answer:
-          "The normal resting heart rate in most adults is approximately 60–100 beats per minute."
-      },
-
-      {
-        subject: "Dental",
-        difficulty: "Easy",
-        question:
-          "How many permanent teeth are normally present in an adult?",
-        answer:
-          "A complete permanent dentition normally consists of 32 teeth, including the third molars."
-      },
-
-      {
-        subject: "Pharmacology",
-        difficulty: "Medium",
-        question:
-          "Which drug is commonly used as a local anesthetic in dentistry?",
-        answer:
-          "Lidocaine is a commonly used local anesthetic in dentistry."
-      },
-
-      {
-        subject: "BCS",
-        difficulty: "Easy",
-        question:
-          "What is the capital of Bangladesh?",
-        answer:
-          "Dhaka is the capital of Bangladesh."
-      },
-
-      {
-        subject: "Microbiology",
-        difficulty: "Hard",
-        question:
-          "Which organism is commonly associated with dental caries?",
-        answer:
-          "Streptococcus mutans is strongly associated with the initiation of dental caries."
-      }
-
-    ];
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbzwEtARZ36HPe6gS6BymvbrDNUVj9MnMWKj4kNOEZATJdmdoe133lzlGtF74l-zoMtU/exec";
 
 
-    /* =========================
+    /* ==========================================
        VARIABLES
-       ========================= */
+       ========================================== */
+
+    let questions = [];
 
     let filteredQuestions = [];
 
@@ -724,63 +783,222 @@
 
     let timeLeft = 30;
 
-    let timerInterval;
+    let timerInterval = null;
 
 
-    /* =========================
-       THEME
-       ========================= */
+    /* ==========================================
+       LOAD QUESTIONS
+       ========================================== */
 
-    function toggleTheme() {
+    async function loadQuestions() {
 
-      document.body.classList.toggle("dark");
+      const loading =
+        document.getElementById("loading");
 
-      const button =
-        document.getElementById("themeBtn");
+      const filters =
+        document.getElementById("filters");
 
-      if (document.body.classList.contains("dark")) {
+      const errorBox =
+        document.getElementById("errorBox");
 
-        button.textContent = "☀️";
 
-      } else {
+      loading.style.display = "block";
 
-        button.textContent = "🌙";
+      filters.style.opacity = "0.5";
+
+      errorBox.style.display = "none";
+
+
+      try {
+
+        const response =
+          await fetch(API_URL, {
+            method: "GET",
+            cache: "no-store"
+          });
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Unable to connect to the question database."
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        if (!Array.isArray(data)) {
+
+          throw new Error(
+            "Invalid question data received."
+          );
+
+        }
+
+
+        questions = data
+          .map(q => ({
+            subject: String(q.subject || "").trim(),
+            topic: String(q.topic || "").trim(),
+            question: String(q.question || "").trim(),
+            answer: String(q.answer || "").trim(),
+            difficulty: String(q.difficulty || "").trim()
+          }))
+          .filter(q =>
+            q.question &&
+            q.answer
+          );
+
+
+        if (!questions.length) {
+
+          throw new Error(
+            "No questions were found in your Google Sheet."
+          );
+
+        }
+
+
+        createFilters();
+
+        filters.style.opacity = "1";
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        errorBox.textContent =
+          "Question database could not be loaded. " +
+          "Please check your Google Apps Script deployment " +
+          "and make sure access is set to Anyone.";
+
+        errorBox.style.display = "block";
+
+        filters.style.opacity = "1";
+
+      } finally {
+
+        loading.style.display = "none";
 
       }
 
     }
 
 
-    /* =========================
+    /* ==========================================
+       CREATE FILTER OPTIONS
+       ========================================== */
+
+    function createFilters() {
+
+      const subjectSelect =
+        document.getElementById("subjectSelect");
+
+      const difficultySelect =
+        document.getElementById("difficultySelect");
+
+
+      const subjects =
+        [...new Set(
+          questions
+            .map(q => q.subject)
+            .filter(Boolean)
+        )]
+        .sort();
+
+
+      const difficulties =
+        [...new Set(
+          questions
+            .map(q => q.difficulty)
+            .filter(Boolean)
+        )]
+        .sort();
+
+
+      subjectSelect.innerHTML =
+        `<option value="all">All Subjects</option>`;
+
+
+      subjects.forEach(subject => {
+
+        const option =
+          document.createElement("option");
+
+        option.value = subject;
+
+        option.textContent = subject;
+
+        subjectSelect.appendChild(option);
+
+      });
+
+
+      difficultySelect.innerHTML =
+        `<option value="all">All Levels</option>`;
+
+
+      difficulties.forEach(level => {
+
+        const option =
+          document.createElement("option");
+
+        option.value = level;
+
+        option.textContent = level;
+
+        difficultySelect.appendChild(option);
+
+      });
+
+    }
+
+
+    /* ==========================================
        START PRACTICE
-       ========================= */
+       ========================================== */
 
     function startPractice() {
 
       const subject =
-        document.getElementById("subjectSelect").value;
+        document.getElementById(
+          "subjectSelect"
+        ).value;
+
 
       const difficulty =
-        document.getElementById("difficultySelect").value;
+        document.getElementById(
+          "difficultySelect"
+        ).value;
 
 
       filteredQuestions =
-        questions.filter(function(q) {
+        questions.filter(q => {
 
           const subjectMatch =
             subject === "all" ||
             q.subject === subject;
 
+
           const difficultyMatch =
             difficulty === "all" ||
             q.difficulty === difficulty;
 
-          return subjectMatch && difficultyMatch;
+
+          return (
+            subjectMatch &&
+            difficultyMatch
+          );
 
         });
 
 
-      if (filteredQuestions.length === 0) {
+      if (!filteredQuestions.length) {
 
         alert(
           "No questions found for this filter."
@@ -791,11 +1009,21 @@
       }
 
 
+      /*
+       * Shuffle questions
+       */
+
+      filteredQuestions =
+        [...filteredQuestions]
+        .sort(() => Math.random() - 0.5);
+
+
       currentQuestion = 0;
 
 
       document.getElementById("home")
         .style.display = "none";
+
 
       document.getElementById("practice")
         .style.display = "block";
@@ -806,9 +1034,9 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        SHOW QUESTION
-       ========================= */
+       ========================================== */
 
     function showQuestion() {
 
@@ -835,6 +1063,14 @@
 
 
       document
+        .getElementById("questionTopic")
+        .textContent =
+        q.topic
+          ? `${q.subject} • ${q.topic}`
+          : q.subject;
+
+
+      document
         .getElementById("questionCard")
         .classList.remove("flipped");
 
@@ -844,9 +1080,9 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        TIMER
-       ========================= */
+       ========================================== */
 
     function startTimer() {
 
@@ -858,7 +1094,7 @@
 
 
       timerInterval =
-        setInterval(function() {
+        setInterval(() => {
 
           timeLeft--;
 
@@ -880,17 +1116,30 @@
 
     function updateTimer() {
 
-      document
-        .getElementById("timer")
-        .textContent =
+      const timer =
+        document.getElementById("timer");
+
+
+      timer.textContent =
         timeLeft;
+
+
+      if (timeLeft <= 5) {
+
+        timer.classList.add("warning");
+
+      } else {
+
+        timer.classList.remove("warning");
+
+      }
 
     }
 
 
-    /* =========================
+    /* ==========================================
        FLIP CARD
-       ========================= */
+       ========================================== */
 
     function flipCard(event) {
 
@@ -898,7 +1147,9 @@
         event.stopPropagation();
       }
 
+
       clearInterval(timerInterval);
+
 
       document
         .getElementById("questionCard")
@@ -907,9 +1158,9 @@
     }
 
 
-    /* =========================
+    /* ==========================================
        NEXT QUESTION
-       ========================= */
+       ========================================== */
 
     function nextQuestion(event) {
 
@@ -917,7 +1168,9 @@
         event.stopPropagation();
       }
 
+
       currentQuestion++;
+
 
       if (
         currentQuestion >=
@@ -928,14 +1181,15 @@
 
       }
 
+
       showQuestion();
 
     }
 
 
-    /* =========================
-       SKIP QUESTION
-       ========================= */
+    /* ==========================================
+       SKIP
+       ========================================== */
 
     function skipQuestion(event) {
 
@@ -943,7 +1197,9 @@
         event.stopPropagation();
       }
 
+
       currentQuestion++;
+
 
       if (
         currentQuestion >=
@@ -954,28 +1210,66 @@
 
       }
 
+
       showQuestion();
 
     }
 
 
-    /* =========================
+    /* ==========================================
        HOME
-       ========================= */
+       ========================================== */
 
     function goHome() {
 
       clearInterval(timerInterval);
 
+
       document
         .getElementById("practice")
         .style.display = "none";
+
 
       document
         .getElementById("home")
         .style.display = "block";
 
     }
+
+
+    /* ==========================================
+       DARK MODE
+       ========================================== */
+
+    function toggleTheme() {
+
+      document.body.classList.toggle("dark");
+
+
+      const button =
+        document.getElementById("themeBtn");
+
+
+      if (
+        document.body.classList.contains("dark")
+      ) {
+
+        button.textContent = "☀️";
+
+      } else {
+
+        button.textContent = "🌙";
+
+      }
+
+    }
+
+
+    /* ==========================================
+       LOAD DATABASE WHEN WEBSITE OPENS
+       ========================================== */
+
+    loadQuestions();
 
   </script>
 
