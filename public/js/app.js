@@ -233,40 +233,32 @@
       },
 
       bindEvents() {
-        // Fullscreen Toggle
+        // Card-Only Fullscreen Toggle (Zen mode: expands the flashcard only)
         const btnToggleFullscreen = document.getElementById("btnToggleFullscreen");
-        if (btnToggleFullscreen) {
-          btnToggleFullscreen.addEventListener("click", () => {
-            AudioEngine.playClick();
-            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-              if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen().catch(() => {});
-              } else if (document.documentElement.webkitRequestFullscreen) {
-                document.documentElement.webkitRequestFullscreen();
-              }
-            } else {
-              if (document.exitFullscreen) {
-                document.exitFullscreen().catch(() => {});
-              } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-              }
-            }
-          });
+        const btnExitFullscreen = document.getElementById("btnExitFullscreen");
+        const cardStage = document.getElementById("cardStage");
 
-          const updateFullscreenIcon = () => {
-            const svg = document.getElementById("fullscreenSvg");
-            if (!svg) return;
-            if (document.fullscreenElement || document.webkitFullscreenElement) {
+        const toggleCardFullscreen = () => {
+          AudioEngine.playClick();
+          if (!cardStage) return;
+          const isNowFullscreen = cardStage.classList.toggle("zen-fullscreen");
+          const svg = document.getElementById("fullscreenSvg");
+          if (svg) {
+            if (isNowFullscreen) {
               svg.innerHTML = `<path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>`;
-              btnToggleFullscreen.title = "Exit Full Screen";
+              if (btnToggleFullscreen) btnToggleFullscreen.title = "Exit Card Full Screen";
             } else {
               svg.innerHTML = `<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>`;
-              btnToggleFullscreen.title = "Toggle Full Screen";
+              if (btnToggleFullscreen) btnToggleFullscreen.title = "Card Full Screen";
             }
-          };
+          }
+        };
 
-          document.addEventListener("fullscreenchange", updateFullscreenIcon);
-          document.addEventListener("webkitfullscreenchange", updateFullscreenIcon);
+        if (btnToggleFullscreen) {
+          btnToggleFullscreen.addEventListener("click", toggleCardFullscreen);
+        }
+        if (btnExitFullscreen) {
+          btnExitFullscreen.addEventListener("click", toggleCardFullscreen);
         }
 
         // Sound Toggle
@@ -390,7 +382,9 @@
         // Keyboard Shortcuts
         document.addEventListener("keydown", (e) => {
           if (["SELECT", "INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
-          if (e.key === " " || e.key.toLowerCase() === "f") {
+          if (e.key === "Escape" && cardStage && cardStage.classList.contains("zen-fullscreen")) {
+            toggleCardFullscreen();
+          } else if (e.key === " " || e.key.toLowerCase() === "f") {
             e.preventDefault();
             this.toggleFlip();
           } else if (e.key === "ArrowRight" || e.key.toLowerCase() === "n") {
@@ -471,8 +465,9 @@
             finalExpl = `Standard examination topic under ${subject} - ${topic}.`;
           }
 
+          const rawCat = (r.track || r.Track || r.category || r.Category || cat).toString().trim();
           return {
-            Category: cat,
+            Category: rawCat || cat,
             Subject: subject,
             Topic: topic,
             Question: question,
