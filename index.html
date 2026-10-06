@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Dental to BCS</title>
+  <title>BDS to BCS — Questions</title>
 
   <style>
     * {
@@ -13,50 +14,25 @@
       padding: 0;
     }
 
-    :root {
-      --primary: #0d9488;
-      --primary-light: #e6f5f3;
-      --bg: #f5f7fb;
-      --card: #ffffff;
-      --text: #172033;
-      --muted: #697386;
-      --border: #dce2ea;
-      --danger: #dc2626;
-    }
-
-    body.dark {
-      --bg: #10141c;
-      --card: #181e28;
-      --text: #f2f4f8;
-      --muted: #9ba5b5;
-      --border: #303847;
-      --primary-light: #173b38;
-    }
-
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    button,
-    select {
-      font-family: inherit;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+      line-height: 1.6;
     }
 
     .container {
-      width: min(900px, 92%);
+      width: min(100% - 30px, 1000px);
       margin: auto;
     }
 
-    /* =========================
-       HEADER
-       ========================= */
-
     header {
-      padding: 22px 0;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .header-inner {
@@ -66,390 +42,148 @@
       gap: 15px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
     .logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--primary);
-      color: white;
       font-size: 22px;
+      font-weight: 700;
+      color: #111827;
     }
 
-    .brand-text h1 {
-      font-size: 20px;
+    .logo span {
+      color: #2563eb;
     }
 
-    .brand-text p {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 3px;
-    }
-
-    .theme-btn {
-      border: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--border);
-      cursor: pointer;
-      font-size: 18px;
-      color: var(--text);
-    }
-
-    /* =========================
-       HOME
-       ========================= */
-
-    .welcome {
+    .hero {
       text-align: center;
-      padding: 50px 0 35px;
+      padding: 55px 15px 30px;
     }
 
-    .welcome .emoji {
-      font-size: 42px;
-      margin-bottom: 15px;
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 48px);
+      margin-bottom: 10px;
     }
 
-    .welcome h2 {
-      font-size: clamp(30px, 6vw, 48px);
-      margin-bottom: 12px;
-    }
-
-    .welcome h2 span {
-      color: var(--primary);
-    }
-
-    .welcome p {
-      max-width: 600px;
+    .hero p {
+      color: #6b7280;
+      max-width: 650px;
       margin: auto;
-      line-height: 1.7;
-      color: var(--muted);
-      font-size: 15px;
     }
-
-    /* =========================
-       LOADING
-       ========================= */
-
-    .loading {
-      text-align: center;
-      padding: 30px;
-      color: var(--muted);
-      display: none;
-    }
-
-    .spinner {
-      width: 25px;
-      height: 25px;
-      border: 3px solid var(--border);
-      border-top-color: var(--primary);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 12px;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* =========================
-       FILTERS
-       ========================= */
 
     .filters {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 5px 25px rgba(0,0,0,.06);
+      margin: 20px auto 30px;
     }
 
-    body.dark .filters {
-      box-shadow: none;
-    }
-
-    .filters h3 {
-      margin-bottom: 18px;
-      font-size: 18px;
-    }
-
-    .filter-grid {
+    .filter-row {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 15px;
-    }
-
-    .filter-group label {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 7px;
-      color: var(--muted);
     }
 
     select {
       width: 100%;
-      padding: 13px;
-      border: 1px solid var(--border);
+      padding: 13px 14px;
+      border: 1px solid #d1d5db;
       border-radius: 10px;
-      background: var(--card);
-      color: var(--text);
-      outline: none;
-      font-size: 14px;
-    }
-
-    .start-btn {
-      width: 100%;
-      margin-top: 20px;
-      padding: 14px;
-      border: none;
-      border-radius: 11px;
-      background: var(--primary);
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
+      background: white;
       font-size: 15px;
-      transition: 0.2s;
+      outline: none;
     }
 
-    .start-btn:hover {
-      transform: translateY(-1px);
-      opacity: 0.92;
+    select:focus {
+      border-color: #2563eb;
     }
 
-    /* =========================
-       PRACTICE
-       ========================= */
-
-    #practice {
-      display: none;
-      padding: 30px 0 60px;
-    }
-
-    .practice-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      gap: 15px;
+    .question-card {
+      background: white;
+      padding: 25px;
+      margin-bottom: 20px;
+      border-radius: 16px;
+      box-shadow: 0 5px 25px rgba(0,0,0,.06);
     }
 
     .question-number {
       font-size: 13px;
-      color: var(--muted);
-    }
-
-    .timer {
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      background: var(--primary-light);
-      color: var(--primary);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 20px;
+      color: #2563eb;
       font-weight: bold;
-      transition: 0.2s;
+      margin-bottom: 8px;
     }
 
-    .timer.warning {
-      color: var(--danger);
-    }
-
-    /* =========================
-       CARD
-       ========================= */
-
-    .card-wrapper {
-      perspective: 1200px;
-    }
-
-    .card {
-      position: relative;
-      width: 100%;
-      min-height: 350px;
-      transform-style: preserve-3d;
-      transition: transform 0.65s;
-      cursor: pointer;
-    }
-
-    .card.flipped {
-      transform: rotateY(180deg);
-    }
-
-    .card-side {
-      position: absolute;
-      inset: 0;
-      min-height: 350px;
-      backface-visibility: hidden;
-      border-radius: 24px;
-      padding: 35px;
-      background: var(--card);
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-
-    body.dark .card-side {
-      box-shadow: none;
-    }
-
-    .card-back {
-      transform: rotateY(180deg);
-      background: var(--primary-light);
-    }
-
-    .card-label {
-      font-size: 12px;
-      font-weight: bold;
-      color: var(--primary);
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .question {
+      font-size: 19px;
+      font-weight: 600;
       margin-bottom: 20px;
     }
 
-    .card-question {
-      font-size: clamp(21px, 4vw, 30px);
-      line-height: 1.45;
-      font-weight: 600;
-      max-width: 700px;
-    }
-
-    .answer {
-      font-size: 20px;
-      line-height: 1.6;
-      max-width: 700px;
-    }
-
-    .question-topic {
-      margin-top: 18px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .hint {
-      margin-top: 25px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* =========================
-       ACTIONS
-       ========================= */
-
-    .actions {
+    .options {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
       gap: 10px;
-      margin-top: 18px;
     }
 
-    .action-btn {
-      padding: 13px;
-      border-radius: 11px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--text);
-      transition: 0.2s;
-    }
-
-    .action-btn.primary {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: white;
-    }
-
-    .action-btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .back-btn {
-      margin-top: 18px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: var(--text);
-      opacity: 0.65;
-    }
-
-    /* =========================
-       ERROR
-       ========================= */
-
-    .error-box {
-      display: none;
-      margin-top: 15px;
-      padding: 15px;
+    .option {
+      padding: 13px 15px;
+      border: 1px solid #e5e7eb;
       border-radius: 10px;
-      background: #fee2e2;
-      color: #991b1b;
-      font-size: 14px;
-      line-height: 1.5;
+      cursor: pointer;
+      transition: .2s;
+      background: #fff;
     }
 
-    /* =========================
-       FOOTER
-       ========================= */
+    .option:hover {
+      background: #f3f6ff;
+      border-color: #2563eb;
+    }
+
+    .option.correct {
+      background: #dcfce7;
+      border-color: #22c55e;
+    }
+
+    .option.wrong {
+      background: #fee2e2;
+      border-color: #ef4444;
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 18px;
+      padding: 15px;
+      background: #f3f4f6;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 50px 20px;
+      color: #6b7280;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 50px;
+    }
 
     footer {
       text-align: center;
-      padding: 35px 0;
-      font-size: 12px;
-      color: var(--muted);
+      padding: 40px 15px;
+      color: #6b7280;
+      font-size: 14px;
     }
 
-    /* =========================
-       MOBILE
-       ========================= */
-
     @media (max-width: 600px) {
-
-      .welcome {
-        padding: 35px 0 25px;
-      }
-
-      .filter-grid {
+      .filter-row {
         grid-template-columns: 1fr;
       }
 
-      .filters {
-        padding: 20px;
+      .question-card {
+        padding: 18px;
       }
 
-      .card,
-      .card-side {
-        min-height: 390px;
-      }
-
-      .card-side {
-        padding: 25px 20px;
-      }
-
-      .actions {
-        grid-template-columns: 1fr;
-      }
-
-      .action-btn {
-        padding: 14px;
-      }
-
-      .brand-text h1 {
-        font-size: 18px;
+      .question {
+        font-size: 17px;
       }
     }
   </style>
@@ -457,821 +191,395 @@
 
 <body>
 
-  <!-- =========================
-       HEADER
-       ========================= -->
+<header>
+  <div class="container header-inner">
+    <div class="logo">
+      BDS <span>to</span> BCS
+    </div>
 
-  <header>
-    <div class="container header-inner">
+    <div>
+      Fahim Shahriar
+    </div>
+  </div>
+</header>
 
-      <div class="brand">
 
-        <div class="logo">
-          🦷
-        </div>
+<main>
 
-        <div class="brand-text">
-          <h1>Dental to BCS</h1>
-          <p>Learn • Practice • Prepare</p>
-        </div>
+  <section class="hero">
+    <div class="container">
+      <h1>BDS to BCS</h1>
+
+      <p>
+        Practice questions for BDS students and BCS candidates.
+        Choose your category and subject to start learning.
+      </p>
+    </div>
+  </section>
+
+
+  <section class="container">
+
+    <div class="filters">
+
+      <div class="filter-row">
+
+        <select id="categoryFilter">
+          <option value="all">All Categories</option>
+          <option value="BDS">BDS</option>
+          <option value="BCS">BCS</option>
+        </select>
+
+        <select id="subjectFilter">
+          <option value="all">All Subjects</option>
+        </select>
 
       </div>
-
-      <button
-        class="theme-btn"
-        onclick="toggleTheme()"
-        id="themeBtn">
-        🌙
-      </button>
 
     </div>
-  </header>
 
 
-  <!-- =========================
-       HOME
-       ========================= -->
+    <div id="questionContainer">
 
-  <main id="home">
-
-    <section class="welcome">
-
-      <div class="container">
-
-        <div class="emoji">
-          🦷
-        </div>
-
-        <h2>
-          Dental <span>to BCS</span>
-        </h2>
-
-        <p>
-          Practice dental and BCS-related questions
-          with timed question cards, quick answers
-          and focused revision.
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <section class="container">
-
-      <!-- Loading -->
-
-      <div
-        class="loading"
-        id="loading">
-
-        <div class="spinner"></div>
-
+      <div class="loading">
         Loading questions...
-
       </div>
-
-
-      <!-- Filters -->
-
-      <div
-        class="filters"
-        id="filters">
-
-        <h3>
-          Start Practice
-        </h3>
-
-        <div class="filter-grid">
-
-          <div class="filter-group">
-
-            <label for="subjectSelect">
-              Subject
-            </label>
-
-            <select id="subjectSelect">
-
-              <option value="all">
-                All Subjects
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <div class="filter-group">
-
-            <label for="difficultySelect">
-              Difficulty
-            </label>
-
-            <select id="difficultySelect">
-
-              <option value="all">
-                All Levels
-              </option>
-
-            </select>
-
-          </div>
-
-        </div>
-
-
-        <button
-          class="start-btn"
-          onclick="startPractice()">
-
-          Start Practice →
-
-        </button>
-
-
-        <div
-          class="error-box"
-          id="errorBox">
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =========================
-       PRACTICE
-       ========================= -->
-
-  <section id="practice">
-
-    <div class="container">
-
-      <div class="practice-top">
-
-        <div
-          class="question-number"
-          id="questionNumber">
-
-          Question 1
-
-        </div>
-
-
-        <div
-          class="timer"
-          id="timer">
-
-          30
-
-        </div>
-
-      </div>
-
-
-      <!-- CARD -->
-
-      <div class="card-wrapper">
-
-        <div
-          class="card"
-          id="questionCard"
-          onclick="flipCard()">
-
-
-          <!-- FRONT -->
-
-          <div class="card-side card-front">
-
-            <div class="card-label">
-              Question
-            </div>
-
-
-            <div
-              class="card-question"
-              id="questionText">
-
-              Loading question...
-
-            </div>
-
-
-            <div
-              class="question-topic"
-              id="questionTopic">
-
-            </div>
-
-
-            <div class="hint">
-              Tap the card to reveal the answer
-            </div>
-
-          </div>
-
-
-          <!-- BACK -->
-
-          <div class="card-side card-back">
-
-            <div class="card-label">
-              Possible Answer
-            </div>
-
-
-            <div
-              class="answer"
-              id="answerText">
-
-              Answer
-
-            </div>
-
-
-            <div class="hint">
-              Tap the card to return
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- ACTIONS -->
-
-      <div class="actions">
-
-        <button
-          class="action-btn"
-          onclick="skipQuestion(event)">
-
-          ⏭ Skip
-
-        </button>
-
-
-        <button
-          class="action-btn"
-          onclick="flipCard(event)">
-
-          🔄 Flip
-
-        </button>
-
-
-        <button
-          class="action-btn primary"
-          onclick="nextQuestion(event)">
-
-          Next →
-
-        </button>
-
-      </div>
-
-
-      <button
-        class="back-btn"
-        onclick="goHome()">
-
-        ← Back to Home
-
-      </button>
 
     </div>
 
   </section>
 
-
-  <!-- FOOTER -->
-
-  <footer>
-
-    <div class="container">
-
-      Dental to BCS • Question Practice
-
-    </div>
-
-  </footer>
+</main>
 
 
-  <script>
-
-    /* ==========================================
-       GOOGLE APPS SCRIPT API
-       ========================================== */
-
-    const API_URL =
-      "https://script.google.com/macros/s/AKfycbzwEtARZ36HPe6gS6BymvbrDNUVj9MnMWKj4kNOEZATJdmdoe133lzlGtF74l-zoMtU/exec";
+<footer>
+  © 2026 BDS to BCS · Fahim Shahriar
+</footer>
 
 
-    /* ==========================================
-       VARIABLES
-       ========================================== */
+<script>
 
-    let questions = [];
+  /*
+    =====================================================
+    GOOGLE APPS SCRIPT WEB APP URL
+    =====================================================
+    
+    এখানে তোমার Google Apps Script Web App URL বসাবে।
+  */
 
-    let filteredQuestions = [];
-
-    let currentQuestion = 0;
-
-    let timeLeft = 30;
-
-    let timerInterval = null;
-
-
-    /* ==========================================
-       LOAD QUESTIONS
-       ========================================== */
-
-    async function loadQuestions() {
-
-      const loading =
-        document.getElementById("loading");
-
-      const filters =
-        document.getElementById("filters");
-
-      const errorBox =
-        document.getElementById("errorBox");
+  const API_URL =
+    "https://script.google.com/macros/s/AKfycbzwEtARZ36HPe6gS6BymvbrDNUVj9MnMWKj4kNOEZATJdmdoe133lzlGtF74l-zoMtU/exec";
 
 
-      loading.style.display = "block";
-
-      filters.style.opacity = "0.5";
-
-      errorBox.style.display = "none";
+  let allQuestions = [];
 
 
-      try {
+  /*
+    =====================================================
+    LOAD QUESTIONS
+    =====================================================
+  */
 
-        const response =
-          await fetch(API_URL, {
-            method: "GET",
-            cache: "no-store"
+  async function loadQuestions() {
+
+    const container =
+      document.getElementById("questionContainer");
+
+    try {
+
+      const response = await fetch(API_URL);
+
+      if (!response.ok) {
+        throw new Error("Failed to load questions");
+      }
+
+      const data = await response.json();
+
+      allQuestions = data;
+
+      updateSubjects();
+
+      displayQuestions();
+
+    } catch (error) {
+
+      console.error(error);
+
+      container.innerHTML = `
+        <div class="empty">
+          <h3>Unable to load questions</h3>
+          <p>
+            Please check the Google Apps Script URL.
+          </p>
+        </div>
+      `;
+    }
+  }
+
+
+  /*
+    =====================================================
+    UPDATE SUBJECT FILTER
+    =====================================================
+  */
+
+  function updateSubjects() {
+
+    const category =
+      document.getElementById("categoryFilter").value;
+
+    const subjectFilter =
+      document.getElementById("subjectFilter");
+
+    let filtered = allQuestions;
+
+    if (category !== "all") {
+
+      filtered = allQuestions.filter(
+        q => q.Category === category
+      );
+
+    }
+
+    const subjects = [
+      ...new Set(
+        filtered
+          .map(q => q.Subject)
+          .filter(Boolean)
+      )
+    ];
+
+    subjectFilter.innerHTML =
+      `<option value="all">All Subjects</option>`;
+
+    subjects.forEach(subject => {
+
+      const option =
+        document.createElement("option");
+
+      option.value = subject;
+      option.textContent = subject;
+
+      subjectFilter.appendChild(option);
+
+    });
+
+  }
+
+
+  /*
+    =====================================================
+    DISPLAY QUESTIONS
+    =====================================================
+  */
+
+  function displayQuestions() {
+
+    const container =
+      document.getElementById("questionContainer");
+
+    const category =
+      document.getElementById("categoryFilter").value;
+
+    const subject =
+      document.getElementById("subjectFilter").value;
+
+
+    let filtered =
+      allQuestions;
+
+
+    if (category !== "all") {
+
+      filtered =
+        filtered.filter(
+          q => q.Category === category
+        );
+
+    }
+
+
+    if (subject !== "all") {
+
+      filtered =
+        filtered.filter(
+          q => q.Subject === subject
+        );
+
+    }
+
+
+    if (filtered.length === 0) {
+
+      container.innerHTML = `
+        <div class="empty">
+          <h3>No questions found</h3>
+          <p>
+            Try another category or subject.
+          </p>
+        </div>
+      `;
+
+      return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    filtered.forEach((q, index) => {
+
+      const card =
+        document.createElement("div");
+
+      card.className = "question-card";
+
+
+      card.innerHTML = `
+
+        <div class="question-number">
+          ${q.Category || ""} 
+          ${q.Subject ? "• " + q.Subject : ""}
+          • Question ${index + 1}
+        </div>
+
+        <div class="question">
+          ${q.Question || ""}
+        </div>
+
+        <div class="options">
+
+          <div class="option"
+               data-answer="A">
+            A. ${q["Option A"] || ""}
+          </div>
+
+          <div class="option"
+               data-answer="B">
+            B. ${q["Option B"] || ""}
+          </div>
+
+          <div class="option"
+               data-answer="C">
+            C. ${q["Option C"] || ""}
+          </div>
+
+          <div class="option"
+               data-answer="D">
+            D. ${q["Option D"] || ""}
+          </div>
+
+        </div>
+
+        <div class="explanation">
+
+          <strong>Explanation:</strong><br>
+
+          ${q.Explanation || "No explanation available."}
+
+        </div>
+      `;
+
+
+      const options =
+        card.querySelectorAll(".option");
+
+      const explanation =
+        card.querySelector(".explanation");
+
+
+      options.forEach(option => {
+
+        option.addEventListener("click", () => {
+
+          options.forEach(o => {
+
+            o.style.pointerEvents = "none";
+
           });
 
 
-        if (!response.ok) {
+          const selected =
+            option.dataset.answer;
 
-          throw new Error(
-            "Unable to connect to the question database."
-          );
+          const correct =
+            String(q.Answer).trim().toUpperCase();
 
-        }
 
+          if (selected === correct) {
 
-        const data =
-          await response.json();
+            option.classList.add("correct");
 
+          } else {
 
-        if (!Array.isArray(data)) {
+            option.classList.add("wrong");
 
-          throw new Error(
-            "Invalid question data received."
-          );
 
-        }
+            options.forEach(o => {
 
+              if (
+                o.dataset.answer === correct
+              ) {
 
-        questions = data
-          .map(q => ({
-            subject: String(q.subject || "").trim(),
-            topic: String(q.topic || "").trim(),
-            question: String(q.question || "").trim(),
-            answer: String(q.answer || "").trim(),
-            difficulty: String(q.difficulty || "").trim()
-          }))
-          .filter(q =>
-            q.question &&
-            q.answer
-          );
+                o.classList.add("correct");
 
+              }
 
-        if (!questions.length) {
-
-          throw new Error(
-            "No questions were found in your Google Sheet."
-          );
-
-        }
-
-
-        createFilters();
-
-        filters.style.opacity = "1";
-
-
-      } catch (error) {
-
-        console.error(error);
-
-        errorBox.textContent =
-          "Question database could not be loaded. " +
-          "Please check your Google Apps Script deployment " +
-          "and make sure access is set to Anyone.";
-
-        errorBox.style.display = "block";
-
-        filters.style.opacity = "1";
-
-      } finally {
-
-        loading.style.display = "none";
-
-      }
-
-    }
-
-
-    /* ==========================================
-       CREATE FILTER OPTIONS
-       ========================================== */
-
-    function createFilters() {
-
-      const subjectSelect =
-        document.getElementById("subjectSelect");
-
-      const difficultySelect =
-        document.getElementById("difficultySelect");
-
-
-      const subjects =
-        [...new Set(
-          questions
-            .map(q => q.subject)
-            .filter(Boolean)
-        )]
-        .sort();
-
-
-      const difficulties =
-        [...new Set(
-          questions
-            .map(q => q.difficulty)
-            .filter(Boolean)
-        )]
-        .sort();
-
-
-      subjectSelect.innerHTML =
-        `<option value="all">All Subjects</option>`;
-
-
-      subjects.forEach(subject => {
-
-        const option =
-          document.createElement("option");
-
-        option.value = subject;
-
-        option.textContent = subject;
-
-        subjectSelect.appendChild(option);
-
-      });
-
-
-      difficultySelect.innerHTML =
-        `<option value="all">All Levels</option>`;
-
-
-      difficulties.forEach(level => {
-
-        const option =
-          document.createElement("option");
-
-        option.value = level;
-
-        option.textContent = level;
-
-        difficultySelect.appendChild(option);
-
-      });
-
-    }
-
-
-    /* ==========================================
-       START PRACTICE
-       ========================================== */
-
-    function startPractice() {
-
-      const subject =
-        document.getElementById(
-          "subjectSelect"
-        ).value;
-
-
-      const difficulty =
-        document.getElementById(
-          "difficultySelect"
-        ).value;
-
-
-      filteredQuestions =
-        questions.filter(q => {
-
-          const subjectMatch =
-            subject === "all" ||
-            q.subject === subject;
-
-
-          const difficultyMatch =
-            difficulty === "all" ||
-            q.difficulty === difficulty;
-
-
-          return (
-            subjectMatch &&
-            difficultyMatch
-          );
-
-        });
-
-
-      if (!filteredQuestions.length) {
-
-        alert(
-          "No questions found for this filter."
-        );
-
-        return;
-
-      }
-
-
-      /*
-       * Shuffle questions
-       */
-
-      filteredQuestions =
-        [...filteredQuestions]
-        .sort(() => Math.random() - 0.5);
-
-
-      currentQuestion = 0;
-
-
-      document.getElementById("home")
-        .style.display = "none";
-
-
-      document.getElementById("practice")
-        .style.display = "block";
-
-
-      showQuestion();
-
-    }
-
-
-    /* ==========================================
-       SHOW QUESTION
-       ========================================== */
-
-    function showQuestion() {
-
-      const q =
-        filteredQuestions[currentQuestion];
-
-
-      document
-        .getElementById("questionNumber")
-        .textContent =
-        `Question ${currentQuestion + 1} of ${filteredQuestions.length}`;
-
-
-      document
-        .getElementById("questionText")
-        .textContent =
-        q.question;
-
-
-      document
-        .getElementById("answerText")
-        .textContent =
-        q.answer;
-
-
-      document
-        .getElementById("questionTopic")
-        .textContent =
-        q.topic
-          ? `${q.subject} • ${q.topic}`
-          : q.subject;
-
-
-      document
-        .getElementById("questionCard")
-        .classList.remove("flipped");
-
-
-      startTimer();
-
-    }
-
-
-    /* ==========================================
-       TIMER
-       ========================================== */
-
-    function startTimer() {
-
-      clearInterval(timerInterval);
-
-      timeLeft = 30;
-
-      updateTimer();
-
-
-      timerInterval =
-        setInterval(() => {
-
-          timeLeft--;
-
-          updateTimer();
-
-
-          if (timeLeft <= 0) {
-
-            clearInterval(timerInterval);
-
-            flipCard();
+            });
 
           }
 
-        }, 1000);
 
-    }
+          explanation.style.display = "block";
 
+        });
 
-    function updateTimer() {
+      });
 
-      const timer =
-        document.getElementById("timer");
 
+      container.appendChild(card);
 
-      timer.textContent =
-        timeLeft;
+    });
 
+  }
 
-      if (timeLeft <= 5) {
 
-        timer.classList.add("warning");
+  /*
+    =====================================================
+    FILTER EVENTS
+    =====================================================
+  */
 
-      } else {
+  document
+    .getElementById("categoryFilter")
+    .addEventListener("change", () => {
 
-        timer.classList.remove("warning");
+      updateSubjects();
 
-      }
+      displayQuestions();
 
-    }
+    });
 
 
-    /* ==========================================
-       FLIP CARD
-       ========================================== */
+  document
+    .getElementById("subjectFilter")
+    .addEventListener("change", () => {
 
-    function flipCard(event) {
+      displayQuestions();
 
-      if (event) {
-        event.stopPropagation();
-      }
+    });
 
 
-      clearInterval(timerInterval);
+  /*
+    =====================================================
+    START
+    =====================================================
+  */
 
+  loadQuestions();
 
-      document
-        .getElementById("questionCard")
-        .classList.toggle("flipped");
-
-    }
-
-
-    /* ==========================================
-       NEXT QUESTION
-       ========================================== */
-
-    function nextQuestion(event) {
-
-      if (event) {
-        event.stopPropagation();
-      }
-
-
-      currentQuestion++;
-
-
-      if (
-        currentQuestion >=
-        filteredQuestions.length
-      ) {
-
-        currentQuestion = 0;
-
-      }
-
-
-      showQuestion();
-
-    }
-
-
-    /* ==========================================
-       SKIP
-       ========================================== */
-
-    function skipQuestion(event) {
-
-      if (event) {
-        event.stopPropagation();
-      }
-
-
-      currentQuestion++;
-
-
-      if (
-        currentQuestion >=
-        filteredQuestions.length
-      ) {
-
-        currentQuestion = 0;
-
-      }
-
-
-      showQuestion();
-
-    }
-
-
-    /* ==========================================
-       HOME
-       ========================================== */
-
-    function goHome() {
-
-      clearInterval(timerInterval);
-
-
-      document
-        .getElementById("practice")
-        .style.display = "none";
-
-
-      document
-        .getElementById("home")
-        .style.display = "block";
-
-    }
-
-
-    /* ==========================================
-       DARK MODE
-       ========================================== */
-
-    function toggleTheme() {
-
-      document.body.classList.toggle("dark");
-
-
-      const button =
-        document.getElementById("themeBtn");
-
-
-      if (
-        document.body.classList.contains("dark")
-      ) {
-
-        button.textContent = "☀️";
-
-      } else {
-
-        button.textContent = "🌙";
-
-      }
-
-    }
-
-
-    /* ==========================================
-       LOAD DATABASE WHEN WEBSITE OPENS
-       ========================================== */
-
-    loadQuestions();
-
-  </script>
+</script>
 
 </body>
 </html>
+```
