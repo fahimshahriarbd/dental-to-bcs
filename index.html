@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dental to BCS</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      min-height: 100vh;
+      transition: 0.3s ease;
+    }
+
+    body.dark {
+      background: #10141c;
+      color: #f2f4f8;
+    }
+
+    .container {
+      width: min(900px, 92%);
+      margin: auto;
+    }
+
+    /* Header */
+
+    header {
+      padding: 22px 0;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0d9488;
+      color: white;
+      font-size: 22px;
+    }
+
+    .brand-text h1 {
+      font-size: 20px;
+    }
+
+    .brand-text p {
+      font-size: 12px;
+      opacity: 0.65;
+      margin-top: 3px;
+    }
+
+    .theme-btn {
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e8edf4;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    body.dark .theme-btn {
+      background: #202733;
+      color: white;
+    }
+
+    /* Welcome */
+
+    .welcome {
+      text-align: center;
+      padding: 50px 0 35px;
+    }
+
+    .welcome .emoji {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .welcome h2 {
+      font-size: clamp(30px, 6vw, 48px);
+      margin-bottom: 12px;
+    }
+
+    .welcome h2 span {
+      color: #0d9488;
+    }
+
+    .welcome p {
+      max-width: 600px;
+      margin: auto;
+      line-height: 1.7;
+      opacity: 0.7;
+      font-size: 15px;
+    }
+
+    /* Filters */
+
+    .filters {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.06);
+    }
+
+    body.dark .filters {
+      background: #181e28;
+      box-shadow: none;
+    }
+
+    .filters h3 {
+      margin-bottom: 18px;
+      font-size: 18px;
+    }
+
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .filter-group label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 7px;
+      opacity: 0.7;
+    }
+
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #dce2ea;
+      border-radius: 10px;
+      background: white;
+      color: #172033;
+      outline: none;
+      font-size: 14px;
+    }
+
+    body.dark select {
+      background: #11161e;
+      border-color: #303847;
+      color: white;
+    }
+
+    .start-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border: none;
+      border-radius: 11px;
+      background: #0d9488;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.92;
+    }
+
+    /* Practice */
+
+    #practice {
+      display: none;
+      padding: 30px 0 60px;
+    }
+
+    .practice-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      gap: 15px;
+    }
+
+    .question-number {
+      font-size: 13px;
+      opacity: 0.65;
+    }
+
+    .timer {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: #e6f5f3;
+      color: #0d9488;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    body.dark .timer {
+      background: #173b38;
+    }
+
+    /* Card */
+
+    .card-wrapper {
+      perspective: 1200px;
+    }
+
+    .card {
+      position: relative;
+      width: 100%;
+      min-height: 350px;
+      transform-style: preserve-3d;
+      transition: transform 0.65s;
+      cursor: pointer;
+    }
+
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-side {
+      position: absolute;
+      inset: 0;
+      min-height: 350px;
+      backface-visibility: hidden;
+      border-radius: 24px;
+      padding: 35px;
+      background: white;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    body.dark .card-side {
+      background: #181e28;
+      box-shadow: none;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: #ecfdfb;
+    }
+
+    body.dark .card-back {
+      background: #12302d;
+    }
+
+    .card-label {
+      font-size: 12px;
+      font-weight: bold;
+      color: #0d9488;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .card-question {
+      font-size: clamp(21px, 4vw, 30px);
+      line-height: 1.45;
+      font-weight: 600;
+      max-width: 700px;
+    }
+
+    .answer {
+      font-size: 20px;
+      line-height: 1.6;
+      max-width: 700px;
+    }
+
+    .hint {
+      margin-top: 25px;
+      font-size: 12px;
+      opacity: 0.5;
+    }
+
+    /* Buttons */
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .action-btn {
+      padding: 13px;
+      border-radius: 11px;
+      border: 1px solid #dce2ea;
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+      color: #172033;
+    }
+
+    body.dark .action-btn {
+      background: #181e28;
+      color: white;
+      border-color: #303847;
+    }
+
+    .action-btn.primary {
+      background: #0d9488;
+      border-color: #0d9488;
+      color: white;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Back */
+
+    .back-btn {
+      margin-top: 18px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      opacity: 0.65;
+      color: inherit;
+    }
+
+    /* Footer */
+
+    footer {
+      text-align: center;
+      padding: 35px 0;
+      font-size: 12px;
+      opacity: 0.55;
+    }
+
+    /* Mobile */
+
+    @media (max-width: 600px) {
+
+      .welcome {
+        padding: 35px 0 25px;
+      }
+
+      .filter-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filters {
+        padding: 20px;
+      }
+
+      .card-side,
+      .card {
+        min-height: 390px;
+      }
+
+      .card-side {
+        padding: 25px 20px;
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .action-btn {
+        padding: 14px;
+      }
+
+      .brand-text h1 {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+
+  <header>
+    <div class="container header-inner">
+
+      <div class="brand">
+        <div class="logo">🦷</div>
+
+        <div class="brand-text">
+          <h1>Dental to BCS</h1>
+          <p>Learn • Practice • Prepare</p>
+        </div>
+      </div>
+
+      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
+        🌙
+      </button>
+
+    </div>
+  </header>
+
+
+  <!-- Home -->
+
+  <main id="home">
+
+    <section class="welcome">
+
+      <div class="container">
+
+        <div class="emoji">🦷</div>
+
+        <h2>
+          Dental <span>to BCS</span>
+        </h2>
+
+        <p>
+          Practice dental and BCS-related questions with timed
+          question cards, quick answers and focused revision.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- Filters -->
+
+    <section class="container">
+
+      <div class="filters">
+
+        <h3>Start Practice</h3>
+
+        <div class="filter-grid">
+
+          <div class="filter-group">
+
+            <label>Subject</label>
+
+            <select id="subjectSelect">
+
+              <option value="all">
+                All Subjects
+              </option>
+
+              <option value="Anatomy">
+                Anatomy
+              </option>
+
+              <option value="Physiology">
+                Physiology
+              </option>
+
+              <option value="Biochemistry">
+                Biochemistry
+              </option>
+
+              <option value="Pharmacology">
+                Pharmacology
+              </option>
+
+              <option value="Pathology">
+                Pathology
+              </option>
+
+              <option value="Microbiology">
+                Microbiology
+              </option>
+
+              <option value="Dental">
+                Dental
+              </option>
+
+              <option value="BCS">
+                BCS
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="filter-group">
+
+            <label>Difficulty</label>
+
+            <select id="difficultySelect">
+
+              <option value="all">
+                All Levels
+              </option>
+
+              <option value="Easy">
+                Easy
+              </option>
+
+              <option value="Medium">
+                Medium
+              </option>
+
+              <option value="Hard">
+                Hard
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <button class="start-btn" onclick="startPractice()">
+          Start Practice →
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- Practice -->
+
+  <section id="practice">
+
+    <div class="container">
+
+      <div class="practice-top">
+
+        <div class="question-number" id="questionNumber">
+          Question 1
+        </div>
+
+        <div class="timer" id="timer">
+          30
+        </div>
+
+      </div>
+
+
+      <!-- Question Card -->
+
+      <div class="card-wrapper">
+
+        <div class="card" id="questionCard"
+             onclick="flipCard()">
+
+          <!-- Front -->
+
+          <div class="card-side card-front">
+
+            <div class="card-label">
+              Question
+            </div>
+
+            <div class="card-question"
+                 id="questionText">
+              Loading question...
+            </div>
+
+            <div class="hint">
+              Tap the card to reveal the answer
+            </div>
+
+          </div>
+
+
+          <!-- Back -->
+
+          <div class="card-side card-back">
+
+            <div class="card-label">
+              Possible Answer
+            </div>
+
+            <div class="answer"
+                 id="answerText">
+              Answer
+            </div>
+
+            <div class="hint">
+              Tap the card to return
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Actions -->
+
+      <div class="actions">
+
+        <button class="action-btn"
+                onclick="skipQuestion(event)">
+          ⏭ Skip
+        </button>
+
+        <button class="action-btn"
+                onclick="flipCard(event)">
+          🔄 Flip
+        </button>
+
+        <button class="action-btn primary"
+                onclick="nextQuestion(event)">
+          Next →
+        </button>
+
+      </div>
+
+
+      <button class="back-btn"
+              onclick="goHome()">
+        ← Back to Home
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <footer>
+
+    <div class="container">
+      Dental to BCS • Question Practice
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    /* =========================
+       DEMO QUESTION DATABASE
+       ========================= */
+
+    const questions = [
+
+      {
+        subject: "Anatomy",
+        difficulty: "Easy",
+        question:
+          "Which is the largest cranial nerve?",
+        answer:
+          "The trigeminal nerve (Cranial Nerve V) is the largest cranial nerve."
+      },
+
+      {
+        subject: "Physiology",
+        difficulty: "Medium",
+        question:
+          "What is the normal resting heart rate in an adult?",
+        answer:
+          "The normal resting heart rate in most adults is approximately 60–100 beats per minute."
+      },
+
+      {
+        subject: "Dental",
+        difficulty: "Easy",
+        question:
+          "How many permanent teeth are normally present in an adult?",
+        answer:
+          "A complete permanent dentition normally consists of 32 teeth, including the third molars."
+      },
+
+      {
+        subject: "Pharmacology",
+        difficulty: "Medium",
+        question:
+          "Which drug is commonly used as a local anesthetic in dentistry?",
+        answer:
+          "Lidocaine is a commonly used local anesthetic in dentistry."
+      },
+
+      {
+        subject: "BCS",
+        difficulty: "Easy",
+        question:
+          "What is the capital of Bangladesh?",
+        answer:
+          "Dhaka is the capital of Bangladesh."
+      },
+
+      {
+        subject: "Microbiology",
+        difficulty: "Hard",
+        question:
+          "Which organism is commonly associated with dental caries?",
+        answer:
+          "Streptococcus mutans is strongly associated with the initiation of dental caries."
+      }
+
+    ];
+
+
+    /* =========================
+       VARIABLES
+       ========================= */
+
+    let filteredQuestions = [];
+
+    let currentQuestion = 0;
+
+    let timeLeft = 30;
+
+    let timerInterval;
+
+
+    /* =========================
+       THEME
+       ========================= */
+
+    function toggleTheme() {
+
+      document.body.classList.toggle("dark");
+
+      const button =
+        document.getElementById("themeBtn");
+
+      if (document.body.classList.contains("dark")) {
+
+        button.textContent = "☀️";
+
+      } else {
+
+        button.textContent = "🌙";
+
+      }
+
+    }
+
+
+    /* =========================
+       START PRACTICE
+       ========================= */
+
+    function startPractice() {
+
+      const subject =
+        document.getElementById("subjectSelect").value;
+
+      const difficulty =
+        document.getElementById("difficultySelect").value;
+
+
+      filteredQuestions =
+        questions.filter(function(q) {
+
+          const subjectMatch =
+            subject === "all" ||
+            q.subject === subject;
+
+          const difficultyMatch =
+            difficulty === "all" ||
+            q.difficulty === difficulty;
+
+          return subjectMatch && difficultyMatch;
+
+        });
+
+
+      if (filteredQuestions.length === 0) {
+
+        alert(
+          "No questions found for this filter."
+        );
+
+        return;
+
+      }
+
+
+      currentQuestion = 0;
+
+
+      document.getElementById("home")
+        .style.display = "none";
+
+      document.getElementById("practice")
+        .style.display = "block";
+
+
+      showQuestion();
+
+    }
+
+
+    /* =========================
+       SHOW QUESTION
+       ========================= */
+
+    function showQuestion() {
+
+      const q =
+        filteredQuestions[currentQuestion];
+
+
+      document
+        .getElementById("questionNumber")
+        .textContent =
+        `Question ${currentQuestion + 1} of ${filteredQuestions.length}`;
+
+
+      document
+        .getElementById("questionText")
+        .textContent =
+        q.question;
+
+
+      document
+        .getElementById("answerText")
+        .textContent =
+        q.answer;
+
+
+      document
+        .getElementById("questionCard")
+        .classList.remove("flipped");
+
+
+      startTimer();
+
+    }
+
+
+    /* =========================
+       TIMER
+       ========================= */
+
+    function startTimer() {
+
+      clearInterval(timerInterval);
+
+      timeLeft = 30;
+
+      updateTimer();
+
+
+      timerInterval =
+        setInterval(function() {
+
+          timeLeft--;
+
+          updateTimer();
+
+
+          if (timeLeft <= 0) {
+
+            clearInterval(timerInterval);
+
+            flipCard();
+
+          }
+
+        }, 1000);
+
+    }
+
+
+    function updateTimer() {
+
+      document
+        .getElementById("timer")
+        .textContent =
+        timeLeft;
+
+    }
+
+
+    /* =========================
+       FLIP CARD
+       ========================= */
+
+    function flipCard(event) {
+
+      if (event) {
+        event.stopPropagation();
+      }
+
+      clearInterval(timerInterval);
+
+      document
+        .getElementById("questionCard")
+        .classList.toggle("flipped");
+
+    }
+
+
+    /* =========================
+       NEXT QUESTION
+       ========================= */
+
+    function nextQuestion(event) {
+
+      if (event) {
+        event.stopPropagation();
+      }
+
+      currentQuestion++;
+
+      if (
+        currentQuestion >=
+        filteredQuestions.length
+      ) {
+
+        currentQuestion = 0;
+
+      }
+
+      showQuestion();
+
+    }
+
+
+    /* =========================
+       SKIP QUESTION
+       ========================= */
+
+    function skipQuestion(event) {
+
+      if (event) {
+        event.stopPropagation();
+      }
+
+      currentQuestion++;
+
+      if (
+        currentQuestion >=
+        filteredQuestions.length
+      ) {
+
+        currentQuestion = 0;
+
+      }
+
+      showQuestion();
+
+    }
+
+
+    /* =========================
+       HOME
+       ========================= */
+
+    function goHome() {
+
+      clearInterval(timerInterval);
+
+      document
+        .getElementById("practice")
+        .style.display = "none";
+
+      document
+        .getElementById("home")
+        .style.display = "block";
+
+    }
+
+  </script>
+
+</body>
+</html>
